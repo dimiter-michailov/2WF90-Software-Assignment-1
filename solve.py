@@ -70,41 +70,6 @@ def solve_exercise(exercise_location : str, answer_location : str):
         # Serialize Python answer data (stored in answer) to JSON answer data and write it to answer_file
         json.dump(answer, answer_file, indent=4)
 
-def check_32bit(num_str, radix):
-    """
-    Check if num_str in the given radix fits in 32-bits.
-    """
-    # Strip leading negative sign
-    num_str = num_str.lstrip('-')
-
-    # Define the maximum possible value for a signed 32-bit integer in each radix
-    max_value_32bit = {
-        2: "1111111111111111111111111111111",  # Max value base 2
-        3: "12112122212110202101",            # Max value base 3
-        4: "1333333333333333",                # Max value base 4
-        5: "1004424420424",                   # Max value base 5
-        6: "55303200553",                     # Max value base 6
-        7: "104134211161",                    # Max value base 7
-        8: "17777777777",                     # Max value base 8
-        9: "547877367",                       # Max value base 9
-        10: "2147483647",                     # Max value base 10
-        11: "2826874035",                     # Max value base 11
-        12: "4823711051",                     # Max value base 12
-        13: "1A20B960",                       # Max value base 13
-        14: "39949A577",                      # Max value base 14
-        15: "684354074",                      # Max value base 15
-        16: "7FFFFFFF"                        # Max value base 16
-    }
-
-    # Check if the string is longer than the max allowed length for the radix
-    if len(num_str) > len(max_value_32bit[radix]):
-        return False
-    
-    # Check if the string value exceeds the maximum allowed value for the radix
-    if num_str > max_value_32bit[radix]:
-        return False
-    return True
-
 def addition(x_str, y_str, radix):
     """
     Perform addition on integers x_str and y_str.
@@ -113,10 +78,6 @@ def addition(x_str, y_str, radix):
     :param radix: The radix.
     :return: The result of the addition as a string and None if invalid.
     """
-
-    # Check if numbers are within 32-bits
-    if not check_32bit(x_str, radix) or not check_32bit(y_str, radix):
-        return None
 
     # Trivial zero case
     if x_str == '0':
@@ -195,4 +156,4 @@ def addition_algorithm(x_str, y_str, radix):
     result.reverse()
 
     # Combine the result digits into a single string and return
-    return ''.join(result).lstrip('0') or '0'  # Ensure no leading zeros in the result
+    return ''.join(result).lstrip('0')  # Ensure no leading zeros in the result
